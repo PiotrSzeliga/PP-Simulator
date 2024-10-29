@@ -10,19 +10,74 @@ namespace Simulator;
 
 public class Creature
 {
-    public string Name { get; set; } = "Istota";
-    public int Level { get; set; } = 1;
+    private string name="Unknown";
+    private int level=1;
+   
+    public string Name
+    {
+        get { return name; }
+        init
+        {
+            value = value.Trim();
+            if (value.Length < 3)
+            {
+                name = value.PadRight(3, '#');
+            }
+            if (value.Length > 25)
+            {
+                value = value[..25].TrimEnd();
+                value = (value.Length < 3) ? value.PadRight(3, '#') : value;
+            }   
+            name = char.ToUpper(name[0])+name.Substring(1);
+        }
+    }
+   public int Level
+    {
+        get { return level; }
+        init
+        { 
+            if (value > 10) 
+            {
+                level = 10;
+            }
+            else if (value < 1)
+            {
+                level = 1;
+            }
+            else
+            {
+                level = value;
+            }
+        }
+    }
     public string Info
     {
-        get { return $"{Name} [{Level}]"; }
+        get { return $"{name} [{level}]"; }
     }
-    public Creature(string name, int level)
+    public Creature(string name = "Unknown", int level = 1)
     {
-        this.Name = name;
-        this.Level = level; 
+        name = name.Trim();
+        if (name.Length < 3)
+        {
+            name = name.PadRight(3, '#');
+        }
+        if (name.Length > 25)
+        {
+            name = name[..25].TrimEnd();
+            name = (name.Length < 3) ? name.PadRight(3, '#') : name;
+        }
+        this.name = char.ToUpper(name[0]) + name.Substring(1);
+
     }
     public void SayHi() {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+        Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
+    }
+    public void Upgrade()
+    {
+        if ( level < 10 )
+        { 
+        level++;
+        }  
     }
 
 }
