@@ -8,11 +8,15 @@ using System.Xml.Linq;
 
 namespace Simulator;
 
-public class Creature
+public abstract class Creature
 {
     private string name="Unknown";
     private int level=1;
    
+    public abstract int Power 
+    {
+        get;
+    }
     public string Name
     {
         get { return name; }
@@ -28,7 +32,7 @@ public class Creature
                 value = value[..25].TrimEnd();
                 value = (value.Length < 3) ? value.PadRight(3, '#') : value;
             }   
-            name = char.ToUpper(name[0])+name.Substring(1);
+            name = char.ToUpper(value[0])+value.Substring(1);
         }
     }
    public int Level
@@ -69,9 +73,9 @@ public class Creature
         this.name = char.ToUpper(name[0]) + name.Substring(1);
 
     }
-    public void SayHi() {
-        Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
-    }
+    public abstract void SayHi();
+        //Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
+    
     public void Upgrade()
     {
         if ( level < 10 )
