@@ -20,18 +20,7 @@ public class Orc : Creature
         get => rage;
         init
         {
-            if (value > 10)
-            {
-                rage = 10;
-            }
-            else if (value < 1)
-            {
-                rage = 1;
-            }
-            else
-            {
-                rage = value;
-            }
+            rage = Validator.Limiter(value, 0, 10);
         }
     }
     public void Hunt()
@@ -47,7 +36,9 @@ public class Orc : Creature
         Rage = rage; 
         Level = level;
     }
-    public override void SayHi() => Console.WriteLine(
-    $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}."
-);
+    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+    public override string Info
+    {
+        get { return $"{Name} [{Level}][{Rage}]"; }
+    }
 }

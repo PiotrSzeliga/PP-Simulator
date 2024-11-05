@@ -16,17 +16,7 @@ public class Animals
         get { return description; }
         init
         {
-            value = value.Trim();
-            if (value.Length < 3)
-            {
-                value = value.PadRight(3, '#');
-            }
-            if (value.Length > 15)
-            {
-                value = value[..15].TrimEnd();
-                value = (value.Length < 3) ? value.PadRight(3, '#') : value;
-            }
-            description = char.ToUpper(value[0]) + value.Substring(1);
+            description = Validator.Shortener(value,3,15);
         }
     }
     public uint Size { get; set; } = 3;
@@ -35,8 +25,12 @@ public class Animals
         Description = description;
         Size = size; 
     }
-    public string Info
+    public virtual string Info
     {
         get { return $"{Description} <{Size}>"; }
+    }
+    public override string ToString()
+    {
+        return $"{this.GetType().Name.ToString().ToUpper()}: {Info}";
     }
 }

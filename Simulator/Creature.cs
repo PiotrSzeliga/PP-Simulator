@@ -22,17 +22,7 @@ public abstract class Creature
         get { return name; }
         init
         {
-            value = value.Trim();
-            if (value.Length < 3)
-            {
-                name = value.PadRight(3, '#');
-            }
-            if (value.Length > 25)
-            {
-                value = value[..25].TrimEnd();
-                value = (value.Length < 3) ? value.PadRight(3, '#') : value;
-            }   
-            name = char.ToUpper(value[0])+value.Substring(1);
+           name = Validator.Shortener(value);
         }
     }
    public int Level
@@ -40,38 +30,17 @@ public abstract class Creature
         get { return level; }
         init
         { 
-            if (value > 10) 
-            {
-                level = 10;
-            }
-            else if (value < 1)
-            {
-                level = 1;
-            }
-            else
-            {
-                level = value;
-            }
+            level = Validator.Limiter(value);
         }
     }
-    public string Info
+    public abstract string Info 
     {
-        get { return $"{name} [{level}]"; }
+        get;
     }
+    
     public Creature(string name = "Unknown", int level = 1)
     {
-        name = name.Trim();
-        if (name.Length < 3)
-        {
-            name = name.PadRight(3, '#');
-        }
-        if (name.Length > 25)
-        {
-            name = name[..25].TrimEnd();
-            name = (name.Length < 3) ? name.PadRight(3, '#') : name;
-        }
-        this.name = char.ToUpper(name[0]) + name.Substring(1);
-
+        name = Validator.Shortener(name, 3, 25);
     }
     public abstract void SayHi();
         //Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
@@ -97,5 +66,9 @@ public abstract class Creature
     public void Go(string directions)
     {
         Go(DirectionParser.Parse(directions));
+    }
+    public override string ToString()
+    {
+        return $"{this.GetType().Name.ToString().ToUpper()}: {Info}";
     }
 }
