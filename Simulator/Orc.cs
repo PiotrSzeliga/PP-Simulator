@@ -29,7 +29,7 @@ public class Orc : Creature
         if (huntCount % 3 == 0 && rage < 10) { rage++; }
         Console.WriteLine($"{Name} is hunting.");
     }
-    public Orc(){}
+    public Orc() { }
     public Orc(string name, int level=1, int rage =1) 
     {
         Name = name;

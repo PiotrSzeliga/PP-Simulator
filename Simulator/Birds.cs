@@ -10,7 +10,7 @@ namespace Simulator;
 
 internal class Birds : Animals
 {
-    public bool CanFly {  get; } = true;
+    public bool CanFly { get; } = true;
     public override string Info
     {
         get { return $"{Description} ({(CanFly ? "fly+" : "fly-")}) <{Size}>"; }
