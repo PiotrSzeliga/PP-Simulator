@@ -30,7 +30,7 @@ internal class Rectangle
 
     public bool Contains(Point point)
     {
-        if (point.X >= X1 & point.X <= X2 & point.Y >= Y1 & point.X <= Y2)
+        if (point.X >= X1 & point.X <= X2 & point.Y >= Y1 & point.Y <= Y2)
         {
             return true;
         }
