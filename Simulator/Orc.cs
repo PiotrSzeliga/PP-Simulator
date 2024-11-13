@@ -23,11 +23,11 @@ public class Orc : Creature
             rage = Validator.Limiter(value, 0, 10);
         }
     }
-    public void Hunt()
+    public string Hunt()
     {
         huntCount++;
         if (huntCount % 3 == 0 && rage < 10) { rage++; }
-        Console.WriteLine($"{Name} is hunting.");
+        return ($"{Name} is hunting.");
     }
     public Orc() { }
     public Orc(string name, int level=1, int rage =1) 
@@ -36,7 +36,11 @@ public class Orc : Creature
         Rage = rage; 
         Level = level;
     }
-    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+    public override string Greetings()
+    {
+        return $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
+}
+
     public override string Info
     {
         get { return $"{Name} [{Level}][{Rage}]"; }

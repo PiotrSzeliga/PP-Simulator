@@ -42,7 +42,7 @@ public abstract class Creature
     {
         name = Validator.Shortener(name, 3, 25);
     }
-    public abstract void SayHi();
+    public abstract string  Greetings();
         //Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
     
     public void Upgrade()
@@ -52,21 +52,20 @@ public abstract class Creature
         level++;
         }  
     }
-    public void Go(Direction directions)   
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+
+    public string[] Go(Direction[] directions)
     {
-        Console.WriteLine($"{name} goes {directions.ToString().ToLower()}.");
-    }
-    public void Go(Direction[] directions)
-    {
-        foreach (Direction direction in directions) 
-        { 
-            Go(direction);
+        string[] result = new string[directions.Length];
+        for (int i=0; i < directions.Length; i++)
+        {
+            result[i] = Go(directions[i]);
         }
+        return result;
     }
-    public void Go(string directions)
-    {
-        Go(DirectionParser.Parse(directions));
-    }
+    
+    public string[] Go(string directions) => Go(DirectionParser.Parse(directions));
+    
     public override string ToString()
     {
         return $"{this.GetType().Name.ToString().ToUpper()}: {Info}";
