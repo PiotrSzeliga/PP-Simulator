@@ -30,14 +30,7 @@ public class Rectangle
 
     public bool Contains(Point point)
     {
-        if (point.X >= X1 & point.X <= X2 & point.Y >= Y1 & point.Y <= Y2)
-        {
-            return true;
-        }
-        else 
-        { 
-            return false;
-        }
+        return point.X >= X1 & point.X <= X2 & point.Y >= Y1 & point.Y <= Y2;
     }
 
     public override string ToString()

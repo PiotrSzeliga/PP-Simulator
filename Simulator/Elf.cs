@@ -8,7 +8,7 @@ namespace Simulator;
 
 public class Elf : Creature 
 {
-    private int singCount=0;
+    private int singCount = 0;
     private int agility = 1;
     
     public override int Power 

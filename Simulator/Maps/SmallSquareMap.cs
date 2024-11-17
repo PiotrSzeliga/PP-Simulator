@@ -9,6 +9,8 @@ namespace Simulator.Maps;
 
 public class SmallSquareMap : Map
 {
+    private Rectangle ssmRectangle;
+
     public int Size 
     {  
         get; 
@@ -22,18 +24,18 @@ public class SmallSquareMap : Map
         { 
             throw new ArgumentOutOfRangeException(nameof(size),$"The size of {size} is invalid. Try a size between 5 and 20");
         }
+
+        ssmRectangle = new Rectangle(0, 0, Size - 1, Size - 1);
     }
    
     public override bool Exist(Point p)
     {
-        Rectangle r = new Rectangle(0,0, Size - 1,Size - 1);
-        return r.Contains(p);
+        return ssmRectangle.Contains(p);
     }
 
     public override Point Next(Point p, Direction d)
     {
-        Rectangle r = new Rectangle(0, 0, Size - 1, Size - 1);
-        if (r.Contains(p.Next(d)))
+        if (Exist(p.Next(d)))
         {
             return p.Next(d);
         }
@@ -45,8 +47,7 @@ public class SmallSquareMap : Map
 
     public override Point NextDiagonal(Point p, Direction d)
     {
-        Rectangle r = new Rectangle(0, 0, Size - 1, Size - 1);
-        if (r.Contains(p.NextDiagonal(d)))
+        if (Exist(p.NextDiagonal(d)))
         {
             return p.NextDiagonal(d);
         }
