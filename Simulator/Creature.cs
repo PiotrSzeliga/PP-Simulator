@@ -42,7 +42,7 @@ public abstract class Creature
     {
         name = Validator.Shortener(name, 3, 25);
     }
-    public abstract string  Greetings();
+    public abstract string Greetings();
         //Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
     
     public void Upgrade()
