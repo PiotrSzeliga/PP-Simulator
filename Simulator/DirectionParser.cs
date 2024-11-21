@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Simulator;
 public static class DirectionParser
 {
-    public static Direction[] Parse(string direction)
+    public static List<Direction> Parse(string direction)
     {
        List<Direction> list = new List<Direction>();
-       foreach (char c in direction.ToUpper())
+        foreach (char c in direction.ToUpper())
        {
             switch (c)
             { 
@@ -34,6 +34,6 @@ public static class DirectionParser
                     break;
             }
        }
-       return list.ToArray();
+       return list;
     }
 }

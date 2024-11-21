@@ -6,78 +6,35 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps;
 
-public class SmallTorusMap : Map
+public class SmallTorusMap : SmallMap
 {
-    private Rectangle stmRectangle;
-
-    public int Size
-    {
-        get;
-    }
-
-    public SmallTorusMap(int size)
-    {
-        Size = size;
-
-        if (size < 5 | size > 20)
-        {
-            throw new ArgumentOutOfRangeException(nameof(size), $"The size of {size} is invalid. Try a size between 5 and 20");
-        }
-
-        stmRectangle = new Rectangle(0, 0, Size - 1, Size - 1);
-    }
-
-    public override bool Exist(Point p)
-    {
-        return stmRectangle.Contains(p);
-    }
+    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
 
     public override Point Next(Point p, Direction d)
     {
-        if (Exist(p.Next(d)))
-        {
-            return p.Next(d);
-        }
-        else
-        {
-            switch (d)
+        return Exist(p.Next(d))
+            ? p.Next(d)
+            : d switch
             {
-                case Direction.Up:
-                    return new Point(p.X, p.Y - (Size - 1));
-                case Direction.Down:
-                    return new Point(p.X, p.Y + (Size - 1));
-                case Direction.Left:
-                    return new Point(p.X + (Size - 1), p.Y);
-                case Direction.Right:
-                    return new Point(p.X - (Size - 1), p.Y);
-                default:
-                    return p;
-            }
-        }
+                Direction.Up => new Point(p.X, p.Y - (SizeY - 1)),
+                Direction.Down => new Point(p.X, p.Y + (SizeY - 1)),
+                Direction.Left => new Point(p.X + (SizeX - 1), p.Y),
+                Direction.Right => new Point(p.X - (SizeX - 1), p.Y),
+                _ => p,
+            };
     }
 
     public override Point NextDiagonal(Point p, Direction d)
     {
-        if (Exist(p.NextDiagonal(d)))
-        {
-            return p.NextDiagonal(d);
-        }
-        else
-        {
-            switch (d) 
+        return Exist(p.NextDiagonal(d))
+            ? p.NextDiagonal(d)
+            : d switch
             {
-                case Direction.Up:
-                    return Next(Next(p, Direction.Up), Direction.Right);
-                case Direction.Down:
-                    return Next(Next(p, Direction.Down), Direction.Left);
-                case Direction.Left:
-                    return Next(Next(p, Direction.Left), Direction.Up);
-                case Direction.Right:
-                    return Next(Next(p, Direction.Right), Direction.Down);
-                default:
-                    return p;
-            }
-
-        }
+                Direction.Up => Next(Next(p, Direction.Up), Direction.Right),
+                Direction.Down => Next(Next(p, Direction.Down), Direction.Left),
+                Direction.Left => Next(Next(p, Direction.Left), Direction.Up),
+                Direction.Right => Next(Next(p, Direction.Right), Direction.Down),
+                _ => p,
+            };
     }
 }

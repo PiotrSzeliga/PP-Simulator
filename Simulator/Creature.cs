@@ -5,15 +5,21 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Simulator.Maps;
 
 namespace Simulator;
+//
 
 public abstract class Creature
 {
+    public Map? Map { get; private set; }
+    public Point Position { get; private set; }
+    public void InitMapAndPosition(Map map, Point position) { }
+
     private string name="Unknown";
     private int level=1;
-   
-    public abstract int Power 
+
+    public abstract int Power
     {
         get;
     }
@@ -47,13 +53,15 @@ public abstract class Creature
     
     public void Upgrade()
     {
-        if ( level < 10 )
-        { 
-        level++;
-        }  
+        if (level < 10) level++;
     }
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+    public string Go(Direction direction)
+    {
+        //zgodnie z regułami mapy
+        return $"{direction.ToString().ToLower()}";
+    }
 
+    //go out
     public string[] Go(Direction[] directions)
     {
         string[] result = new string[directions.Length];
@@ -64,7 +72,7 @@ public abstract class Creature
         return result;
     }
     
-    public string[] Go(string directions) => Go(DirectionParser.Parse(directions));
+    public string[] Go(List<Direction> directions) => Go(DirectionParser.Parse(directions));
     
     public override string ToString()
     {

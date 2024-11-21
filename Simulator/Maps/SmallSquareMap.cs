@@ -7,53 +7,21 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps;
 
-public class SmallSquareMap : Map
+public class SmallSquareMap : SmallMap
 {
-    private Rectangle ssmRectangle;
-
-    public int Size 
-    {  
-        get; 
-    }
-    
-    public SmallSquareMap(int size) 
-    { 
-        Size = size;
-        
-        if (size < 5 | size > 20)
-        { 
-            throw new ArgumentOutOfRangeException(nameof(size),$"The size of {size} is invalid. Try a size between 5 and 20");
-        }
-
-        ssmRectangle = new Rectangle(0, 0, Size - 1, Size - 1);
-    }
-   
-    public override bool Exist(Point p)
+    public SmallSquareMap(int sizeX, int sizeY) : base(sizeX, sizeY) 
     {
-        return ssmRectangle.Contains(p);
-    }
-
+        if (sizeX != sizeY) throw new ArgumentException("Sides of the square need to be equal");
+    }  
+    
+    
     public override Point Next(Point p, Direction d)
     {
-        if (Exist(p.Next(d)))
-        {
-            return p.Next(d);
-        }
-        else 
-        { 
-            return p;        
-        }
+        return Exist(p.Next(d)) ? p.Next(d) : p;
     }
 
     public override Point NextDiagonal(Point p, Direction d)
     {
-        if (Exist(p.NextDiagonal(d)))
-        {
-            return p.NextDiagonal(d);
-        }
-        else
-        {
-            return p;
-        }
+        return Exist(p.NextDiagonal(d)) ? p.NextDiagonal(d) : p;
     }
 }

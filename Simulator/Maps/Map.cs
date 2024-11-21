@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,27 +12,38 @@ namespace Simulator.Maps;
 /// </summary>
 public abstract class Map
 {
-    /// <summary>
-    /// Check if given point belongs to the map.
-    /// </summary>
-    /// <param name="p">Point to check.</param>
-    /// <returns></returns>
-    public abstract bool Exist(Point p);
+    private readonly Rectangle mapRectangle;
+    public int SizeX { get; }
+    public int SizeY { get; }
+    protected Map(int sizeX, int sizeY)
+    {
+        if (sizeX < 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sizeX), "Too narrow");
+        }
 
-    /// <summary>
-    /// Next position to the point in a given direction.
-    /// </summary>
-    /// <param name="p">Starting point.</param>
-    /// <param name="d">Direction.</param>
-    /// <returns>Next point.</returns>
+        if (sizeY < 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sizeY), "Too short");
+        }
+
+        SizeX = sizeX;
+        SizeY = sizeY;
+
+        mapRectangle = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
+    }
+    //public void Add(Creature creature, Point position) { }
+    //public void Remove(Creature creature, Point position) { }
+    //public void Move(Creature creature, Point position, Direction direction) 
+    //{ 
+        //Add(creature, position);
+        //Remove(creature, position);
+    //}
+    //public abstract List<Creature>? At(int x, int y);
+    public virtual bool Exist(Point p)
+    {
+        return mapRectangle.Contains(p);
+    }
     public abstract Point Next(Point p, Direction d);
-
-    /// <summary>
-    /// Next diagonal position to the point in a given direction 
-    /// rotated 45 degrees clockwise.
-    /// </summary>
-    /// <param name="p">Starting point.</param>
-    /// <param name="d">Direction.</param>
-    /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 }
