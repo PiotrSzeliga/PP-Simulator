@@ -32,14 +32,17 @@ public abstract class Map
 
         mapRectangle = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
     }
-    //public void Add(Creature creature, Point position) { }
-    //public void Remove(Creature creature, Point position) { }
-    //public void Move(Creature creature, Point position, Direction direction) 
-    //{ 
-        //Add(creature, position);
-        //Remove(creature, position);
-    //}
-    //public abstract List<Creature>? At(int x, int y);
+   
+    public abstract void Add(Creature creature, Point position);
+    public abstract void Remove(Creature creature, Point position);
+    public void Move(Creature creature, Point position1, Point position2) 
+    { 
+        this.Add(creature, position2);
+        this.Remove(creature, position1);
+    }
+    
+    public abstract List<Creature>? At(Point position);
+    public abstract List<Creature>? At(int x, int y);
     public virtual bool Exist(Point p)
     {
         return mapRectangle.Contains(p);

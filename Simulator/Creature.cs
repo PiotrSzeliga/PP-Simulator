@@ -8,13 +8,18 @@ using System.Xml.Linq;
 using Simulator.Maps;
 
 namespace Simulator;
-//
 
 public abstract class Creature
 {
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
-    public void InitMapAndPosition(Map map, Point position) { }
+    public void InitMapAndPosition(Map map, Point position) 
+    {
+        if (map != null) throw new Exception("Map has already been essigned");
+        if (!map.Exist(position)) throw new Exception("Point is out of map");
+        Map = map;
+        Position = position;
+    }
 
     private string name="Unknown";
     private int level=1;
@@ -46,7 +51,8 @@ public abstract class Creature
     
     public Creature(string name = "Unknown", int level = 1)
     {
-        name = Validator.Shortener(name, 3, 25);
+        this.name = Validator.Shortener(name, 3, 25);
+        this.level = level;
     }
     public abstract string Greetings();
         //Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
@@ -55,25 +61,20 @@ public abstract class Creature
     {
         if (level < 10) level++;
     }
-    public string Go(Direction direction)
+    public void Go(Direction direction)
     {
-        //zgodnie z regułami mapy
-        return $"{direction.ToString().ToLower()}";
+        if (Map == null)
+        {
+            throw new Exception($"{this.ToString} has not been assigned a map");
+        }
+        else 
+        {
+            Point next = Map.Next(Position, direction);
+            Map.Move(this, Position, next);
+            Position = next;
+        }
     }
 
-    //go out
-    public string[] Go(Direction[] directions)
-    {
-        string[] result = new string[directions.Length];
-        for (int i=0; i < directions.Length; i++)
-        {
-            result[i] = Go(directions[i]);
-        }
-        return result;
-    }
-    
-    public string[] Go(List<Direction> directions) => Go(DirectionParser.Parse(directions));
-    
     public override string ToString()
     {
         return $"{this.GetType().Name.ToString().ToUpper()}: {Info}";
