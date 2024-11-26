@@ -15,10 +15,12 @@ public abstract class Creature
     public Point Position { get; private set; }
     public void InitMapAndPosition(Map map, Point position) 
     {
-        if (map != null) throw new Exception("Map has already been essigned");
-        if (!map.Exist(position)) throw new Exception("Point is out of map");
+        if (Map != null) throw new Exception("Map has already been essigned");
+        
         Map = map;
         Position = position;
+
+        if (!Map.Exist(position)) throw new Exception("Point is out of map");
     }
 
     private string name="Unknown";
