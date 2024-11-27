@@ -27,14 +27,20 @@ public class MapVisualizer
     { 
         this.GridLines();
         this.GridData();
-        Console.WriteLine(_gridTop);
+        List<string> grid = new List<string>();
+        grid.Add(this._gridTop);
+        //Console.WriteLine(_gridTop);
         for (int i = 0; i < 2 * gridData.Count -1; i++) 
         {
             var line = (i % 2 == 0) ? gridData[gridData.Count - 1 - (i / 2)] : _gridMiddle;
-            Console.WriteLine(line);
+            //Console.WriteLine(line);
+            grid.Add(line);
         }
-        Console.WriteLine(_gridBottom);
+        //Console.WriteLine(_gridBottom);
+        grid.Add(this._gridBottom);
+        Console.Write(string.Join("\n",grid) + "\n");
     }
+
 
     public void GridLines()
     {
@@ -68,13 +74,13 @@ public class MapVisualizer
             data += Box.Vertical.ToString();
             for (int j = 0; j < Map.SizeX; j++)
             {
-                List<Creature>? list = Map.At(j, i);
+                List<IMappable>? list = Map.At(j, i);
                 switch (list)
                 {
                     case null:
                         data += " ";
                         break;
-                    case List<Creature>:
+                    case List<IMappable>:
                         if (list.Count == 0) { data += " "; break; }
                         else if (list.Count > 1) { data += "X"; break; }
                         else if (list[0].GetType() == typeof(Orc)) { data += "O"; break; }

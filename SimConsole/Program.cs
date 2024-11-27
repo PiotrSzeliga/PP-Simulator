@@ -12,9 +12,9 @@ internal class Program
         Console.OutputEncoding = Encoding.UTF8;
         Console.WriteLine("SIMULATION!");
         SmallTorusMap map = new(6);
-        List<Creature> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
         List<Point> points = [new(4, 3), new(3, 1)];
-        string moves = "dulrlrlrlrlrlrlrlududududududud";
+        string moves = "dldldldldldlldldlddok";
         Simulation simulation = new(map, creatures, points, moves);
         MapVisualizer Visualizer = new(simulation.Map);
         Console.WriteLine("\nStarting positions:");
@@ -27,7 +27,7 @@ internal class Program
             Console.WriteLine();
             Console.WriteLine($"Turn: {turn}");
             turn ++;
-            Console.Write($"{(object)simulation.CurrentCreature} goes {simulation.CurrentMoveName}:\n");
+            Console.Write($"{(object)simulation.CurrentMappable} goes {simulation.CurrentMoveName}:\n");
             simulation.Turn();
             Visualizer.Draw();
         }
