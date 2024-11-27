@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps;
 
-public class SmallTorusMap : SmallMap
+public class SmallTorusMap(int size) : SmallMap(size, size)
 {
-    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
-
     public override Point Next(Point p, Direction d)
     {
         return Exist(p.Next(d))

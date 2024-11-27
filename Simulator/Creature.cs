@@ -19,7 +19,8 @@ public abstract class Creature
         
         Map = map;
         Position = position;
-
+        Map.Add(this, position); 
+        
         if (!Map.Exist(position)) throw new Exception("Point is out of map");
     }
 

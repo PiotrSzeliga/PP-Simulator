@@ -44,6 +44,6 @@ public class Elf : Creature
 
     public override string Info
     {
-        get { return $"{Name} [{Level}][{Agility}]"; }
+        get { return $"{Name} [{Level}][{Agility}] ({Position})"; }
     }
 }

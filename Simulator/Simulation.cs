@@ -56,7 +56,7 @@ public class Simulation
     public string CurrentMoveName 
     {
         /* implement getter only */
-        get { return Moves[_currentMove].ToString().ToLower(); }
+        get { return _directions[_currentMove].ToString().ToLower(); }
     }
 
     /// <summary>
@@ -85,7 +85,8 @@ public class Simulation
         {
             Creatures[i].InitMapAndPosition(map, positions[i]);       
         }
-        
+
+        if (_directions.Count != 0) return;
         Finished = true;
     }
 
@@ -100,7 +101,7 @@ public class Simulation
         Creatures[_currentCreature].Go(_directions[_currentMove]);
         _currentCreature = (_currentCreature + 1) % (Creatures.Count);
         _currentMove++;
-
+        if (_currentMove != _directions.Count) return;
         Finished = true;
     }
 }

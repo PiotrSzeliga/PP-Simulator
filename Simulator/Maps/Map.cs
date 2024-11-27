@@ -13,8 +13,8 @@ namespace Simulator.Maps;
 public abstract class Map
 {
     private readonly Rectangle mapRectangle;
-    public int SizeX { get; }
-    public int SizeY { get; }
+    public int SizeX { get; init; }
+    public int SizeY { get; init; }
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5)

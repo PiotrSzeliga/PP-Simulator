@@ -7,14 +7,8 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps;
 
-public class SmallSquareMap : SmallMap
+public class SmallSquareMap(int size) : SmallMap(size, size)
 {
-    public SmallSquareMap(int sizeX, int sizeY) : base(sizeX, sizeY) 
-    {
-        if (sizeX != sizeY) throw new ArgumentException("Sides of the square need to be equal");
-    }  
-    
-    
     public override Point Next(Point p, Direction d)
     {
         return Exist(p.Next(d)) ? p.Next(d) : p;
