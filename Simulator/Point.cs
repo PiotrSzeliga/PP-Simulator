@@ -23,7 +23,6 @@ public readonly struct Point
             _ => new Point(X, Y),
         };
     }
-    // rotate given direction 45 degrees clockwise
     public Point NextDiagonal(Direction direction)
     {
         return direction switch

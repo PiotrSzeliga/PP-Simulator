@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps;
 
-/// <summary>
-/// Map of points.
-/// </summary>
 public abstract class Map
 {
     private readonly Rectangle mapRectangle;

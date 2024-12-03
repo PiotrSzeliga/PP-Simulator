@@ -23,8 +23,6 @@ public class Rectangle
         {
             throw new ArgumentException($"Points {this} are collinear. We don't want thin rectangles");
         }
-
-
     }
     public Rectangle(Point p1, Point p2) : this(p1.X, p1.Y, p2.X, p2.Y) { }
 
