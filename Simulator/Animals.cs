@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulator.Maps;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -8,8 +9,12 @@ using System.Xml.Linq;
 
 namespace Simulator;
 
-public class Animals
+public class Animals : IMappable
 {
+    public virtual char Symbol => 'A';
+    public Map? Map { get; protected set; }
+    public Point Position { get; protected set; }
+    
     private string description = "Unknown";
     public required string Description
 {
@@ -25,10 +30,35 @@ public class Animals
         Description = description;
         Size = size; 
     }
+    public void InitMapAndPosition(Map map, Point position)
+    {
+        if (Map != null) throw new Exception("Map has already been essigned");
+
+        Map = map;
+        Position = position;
+        Map.Add(this, position);
+
+        if (!Map.Exist(position)) throw new Exception("Point is out of map");
+    }
+
+    public virtual void Go(Direction direction)
+    {
+        if (Map == null)
+        {
+            throw new Exception($"{this.ToString} has not been assigned a map");
+        }
+        else
+        {
+            Map.Move(this, Position, Map.Next(Position, direction));
+            Position = Map.Next(Position, direction);
+        }
+    }
+
     public virtual string Info
     {
         get { return $"{Description} <{Size}>"; }
     }
+
     public override string ToString()
     {
         return $"{this.GetType().Name.ToString().ToUpper()}: {Info}";

@@ -29,14 +29,11 @@ public class MapVisualizer
         this.GridData();
         List<string> grid = new List<string>();
         grid.Add(this._gridTop);
-        //Console.WriteLine(_gridTop);
         for (int i = 0; i < 2 * gridData.Count -1; i++) 
         {
             var line = (i % 2 == 0) ? gridData[gridData.Count - 1 - (i / 2)] : _gridMiddle;
-            //Console.WriteLine(line);
             grid.Add(line);
         }
-        //Console.WriteLine(_gridBottom);
         grid.Add(this._gridBottom);
         Console.Write(string.Join("\n",grid) + "\n");
     }
@@ -68,7 +65,7 @@ public class MapVisualizer
     public void GridData()
     {
         gridData.Clear();
-        for (int i = 0; i < Map.SizeX; i++) 
+        for (int i = 0; i < Map.SizeY; i++) 
         {
             string data = "";
             data += Box.Vertical.ToString();
@@ -83,8 +80,7 @@ public class MapVisualizer
                     case List<IMappable>:
                         if (list.Count == 0) { data += " "; break; }
                         else if (list.Count > 1) { data += "X"; break; }
-                        else if (list[0].GetType() == typeof(Orc)) { data += "O"; break; }
-                        else { data += "E"; break; }
+                        else { data += list[0].Symbol; break; }
                 }
                 data += Box.Vertical.ToString();
             }

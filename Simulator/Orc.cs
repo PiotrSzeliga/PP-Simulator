@@ -8,6 +8,7 @@ namespace Simulator;
 
 public class Orc : Creature
 {
+    public override char Symbol => 'O';
     private int huntCount = 0;
     private int rage = 1;
 

@@ -11,6 +11,7 @@ namespace Simulator;
 
 public abstract class Creature : IMappable
 {
+    public virtual char Symbol => 'C';
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
     public void InitMapAndPosition(Map map, Point position) 
@@ -58,7 +59,6 @@ public abstract class Creature : IMappable
         this.level = level;
     }
     public abstract string Greetings();
-        //Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
     
     public void Upgrade()
     {
@@ -72,9 +72,8 @@ public abstract class Creature : IMappable
         }
         else 
         {
-            Point next = Map.Next(Position, direction);
-            Map.Move(this, Position, next);
-            Position = next;
+            Map.Move(this, Position, Map.Next(Position, direction));
+            Position = Map.Next(Position, direction);
         }
     }
 
