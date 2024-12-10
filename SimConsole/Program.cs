@@ -11,7 +11,7 @@ internal class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
         Console.WriteLine("SIMULATION!");
-        SmallTorusMap map = new(8, 6);
+        BigBounceMap map = new(8, 6);
         List<IMappable> creatures = new List<IMappable> 
         {
             new Orc("Gorbag"), 
@@ -26,10 +26,10 @@ internal class Program
             new(3, 1),
             new(1, 2),
             new(2, 3),
-            new(3, 4),
+            new(6, 4),
         };
         
-        string moves = "uddddolllpuuuLp";
+        string moves = "luuduluuduluuduluudu";
         Simulation simulation = new(map, creatures, points, moves);
         MapVisualizer Visualizer = new(simulation.Map);
         

@@ -13,7 +13,6 @@ public class Birds : Animals
     public bool CanFly { get; set; }
     public override char Symbol => CanFly ? 'B' : 'b';
 
-
     public override string Info
     {
         get { return $"{Description} ({(CanFly ? "fly+" : "fly-")}) <{Size}>"; }

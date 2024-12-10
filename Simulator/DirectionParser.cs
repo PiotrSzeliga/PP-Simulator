@@ -36,4 +36,15 @@ public static class DirectionParser
        }
        return list;
     }
+    public static Direction OppositeDirection(Direction direction) 
+    {
+        return direction switch
+        {
+            Direction.Up => Direction.Down,
+            Direction.Down => Direction.Up,
+            Direction.Left => Direction.Right,
+            Direction.Right => Direction.Left,
+            _ => direction,
+        };
+    }
 }
