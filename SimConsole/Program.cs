@@ -29,10 +29,11 @@ internal class Program
             new(6, 4),
         };
         
-        string moves = "luuduluuduluuduluudu";
+        string moves = "ludrurldrudldurddurd";
         Simulation simulation = new(map, creatures, points, moves);
+
         MapVisualizer Visualizer = new(simulation.Map);
-        
+
         Console.WriteLine("\nStarting positions:");
         Visualizer.Draw();
         int turn = 1;
@@ -42,11 +43,14 @@ internal class Program
             Console.ReadKey();
             Console.WriteLine();
             Console.WriteLine($"Turn: {turn}");
-            turn ++;
+            turn++;
             Console.Write($"{(object)simulation.CurrentMappable} goes {simulation.CurrentMoveName}:\n");
             simulation.Turn();
             Visualizer.Draw();
         }
-        Console.WriteLine("End of simulation!");
+        Console.WriteLine("End of simulation!\n");
+    
+        List<int> turns = new List<int> { 5, 10, 15, 20 };
+        foreach( int number in turns) { simulation.History.DisplaySnapshot(number); }
     }
 }

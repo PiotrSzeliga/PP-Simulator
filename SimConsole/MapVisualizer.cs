@@ -13,9 +13,10 @@ public class MapVisualizer
     private string _gridTop = "";
     private string _gridBottom = "";
     private string _gridMiddle = "";
-    private List<string> gridData = new List<string>();
+    private List<string> _gridData = new List<string>();
     private Map Map { get; }
 
+    public List<string> gridData { get { return _gridData; } }
     public MapVisualizer(Map map)
     {  
         Map = map;
@@ -25,13 +26,12 @@ public class MapVisualizer
 
     public void Draw() 
     { 
-        this.GridLines();
         this.GridData();
         List<string> grid = new List<string>();
         grid.Add(this._gridTop);
-        for (int i = 0; i < 2 * gridData.Count -1; i++) 
+        for (int i = 0; i < 2 * _gridData.Count -1; i++) 
         {
-            var line = (i % 2 == 0) ? gridData[gridData.Count - 1 - (i / 2)] : _gridMiddle;
+            var line = (i % 2 == 0) ? _gridData[_gridData.Count - 1 - (i / 2)] : _gridMiddle;
             grid.Add(line);
         }
         grid.Add(this._gridBottom);
@@ -64,7 +64,7 @@ public class MapVisualizer
 
     public void GridData()
     {
-        gridData.Clear();
+        _gridData.Clear();
         for (int i = 0; i < Map.SizeY; i++) 
         {
             string data = "";
@@ -84,7 +84,7 @@ public class MapVisualizer
                 }
                 data += Box.Vertical.ToString();
             }
-            gridData.Add(data);
+            _gridData.Add(data);
         }
     }
 }

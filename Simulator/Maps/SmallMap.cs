@@ -9,7 +9,7 @@ namespace Simulator.Maps;
 
 public abstract class SmallMap : Map
 {
-    private readonly List<IMappable>?[,] _fields;
+    private readonly List<IMappable>[,] _fields;
     public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         if (sizeX > 20)
@@ -46,6 +46,5 @@ public abstract class SmallMap : Map
     {
         return _fields[position.X, position.Y];
     }
-
 }
 
