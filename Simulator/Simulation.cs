@@ -19,7 +19,6 @@ public class Simulation
 
     public List<Point> Positions { get; }
 
-    public Dictionary<IMappable, Point> Locations { get; set; }
     public string Moves { get; }
 
     public bool Finished = false;
@@ -34,7 +33,6 @@ public class Simulation
         get { return _directions[_currentMove].ToString().ToLower(); }
     }
     
-    public SimulationHistory History { get; }
     public Simulation(Map map, List<IMappable> mappables,
         List<Point> positions, string moves)
     { 
@@ -48,18 +46,12 @@ public class Simulation
         Positions = positions;
         Moves = moves;
         _directions = DirectionParser.Parse(moves);
-        History = new SimulationHistory();
         
         for (int i = 0; i < mappables.Count; i++) 
         {
             IMappables[i].InitMapAndPosition(map, positions[i]);       
         }
 
-        Locations = new Dictionary<IMappable, Point>();
-        Locations = IMappables.ToDictionary(m => m, m => m.Position);
-
-        History.Snapshot(0, Locations, null, null);
-        
         if (_directions.Count != 0) return;
         Finished = true;
     }
@@ -69,11 +61,6 @@ public class Simulation
         if (Finished) throw new InvalidOperationException("Simulation is finished");
         IMappables[_currentMappable].Go(_directions[_currentMove]);
         _currentMappable = (_currentMappable + 1) % (IMappables.Count);
-        
-        Locations = IMappables.ToDictionary(m => m, m => m.Position);
-
-        History.Snapshot(_currentMove, Locations, IMappables[_currentMappable], _directions[_currentMove]);
-        _currentMove++;
         
         if (_currentMove != _directions.Count) return;
         Finished = true;

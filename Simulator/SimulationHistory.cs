@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,39 +12,59 @@ namespace Simulator;
 
 public class SimulationHistory
 {
-    private readonly List<Snapshot> _history = new();
+    private Simulation _simulation { get; }
+    public int SizeX { get; }
+    public int SizeY { get; }
+    public List<SimulationTurnLog> TurnLogs { get; } = [];
+    // store starting positions at index 0
 
-    public void Snapshot(int turn, Dictionary<IMappable, Point> mappables, IMappable? currentMappable, Direction? currentDirection)
+    public SimulationHistory(Simulation simulation)
     {
-        _history.Add(new Snapshot
+        _simulation = simulation ??
+            throw new ArgumentNullException(nameof(simulation));
+        SizeX = _simulation.Map.SizeX;
+        SizeY = _simulation.Map.SizeY;
+        TurnLogs.Add(new SimulationTurnLog
         {
-            Turn = turn,
-            Mappables = mappables,
-            CurrentMappable = currentMappable,
-            CurrentDirection = currentDirection,
+            Mappable = "",
+            Move = "",
+            Symbols = _simulation.Map.fields.ToDictionary(x => x.Key, x => (x.Value.Count == 1) ? x.Value[0].Symbol : 'X')
         });
+        Run();
     }
 
-    public void DisplaySnapshot(int turn) 
+    private void Run()
     {
-        if (turn < 0 | turn >  _history.Count) { throw new ArgumentOutOfRangeException(nameof(turn)); }
-
-        Snapshot snapshot = _history[turn];
-        
-        Console.WriteLine($"Turn: {turn}");
-        foreach (var pair in snapshot.Mappables) 
+        // implement
+        while (!_simulation.Finished)
         {
-            Console.WriteLine($"{pair.Key} at {pair.Value}");
+            TurnLogs.Add(new SimulationTurnLog
+            {
+                Mappable = _simulation.CurrentMappable.ToString(),
+                Move = _simulation.CurrentMoveName.ToString(),
+                Symbols = _simulation.Map.fields.ToDictionary(x => x.Key, x => (x.Value.Count == 1) ? x.Value[0].Symbol : 'X')
+            });
+            _simulation.Turn();
         }
-        if (snapshot.CurrentMappable != null & snapshot.CurrentDirection != null) { Console.WriteLine($"{snapshot.CurrentMappable} goes: {snapshot.CurrentDirection}\n"); }
     }
-
-}
-
-public class Snapshot
-{
-    public int Turn { get; set; }
-    public required Dictionary<IMappable, Point> Mappables { get; set; }
-    public IMappable? CurrentMappable { get; set; }
-    public Direction? CurrentDirection { get; set; }
+    /// <summary>
+    /// State of map after single simulation turn.
+    /// </summary>
+    public class SimulationTurnLog
+    {
+        /// <summary>
+        /// Text representastion of moving object in this turn.
+        /// CurrentMappable.ToString()
+        /// </summary>
+        public required string Mappable { get; init; }
+        /// <summary>
+        /// Text representation of move in this turn.
+        /// CurrentMoveName.ToString();
+        /// </summary>
+        public required string Move { get; init; }
+        /// <summary>
+        /// Dictionary of IMappable.Symbol on the map in this turn.
+        /// </summary>
+        public required Dictionary<Point, char> Symbols { get; init; }
+    }
 }

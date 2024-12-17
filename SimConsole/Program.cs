@@ -32,6 +32,8 @@ internal class Program
         string moves = "ludrurldrudldurddurd";
         Simulation simulation = new(map, creatures, points, moves);
 
+        SimulationHistory history = new SimulationHistory(simulation);
+        
         MapVisualizer Visualizer = new(simulation.Map);
 
         Console.WriteLine("\nStarting positions:");
@@ -50,7 +52,5 @@ internal class Program
         }
         Console.WriteLine("End of simulation!\n");
     
-        List<int> turns = new List<int> { 5, 10, 15, 20 };
-        foreach( int number in turns) { simulation.History.DisplaySnapshot(number); }
     }
 }
