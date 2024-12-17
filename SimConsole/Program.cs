@@ -33,8 +33,13 @@ internal class Program
         Simulation simulation = new(map, creatures, points, moves);
 
         SimulationHistory history = new SimulationHistory(simulation);
-        
-        MapVisualizer Visualizer = new(simulation.Map);
+        LogVisulizer log = new LogVisulizer(history);
+        for (int i = 0; i < 21; i++) 
+        { 
+        log.Draw(i);
+        }
+
+        /* MapVisualizer Visualizer = new(simulation.Map);
 
         Console.WriteLine("\nStarting positions:");
         Visualizer.Draw();
@@ -50,7 +55,6 @@ internal class Program
             simulation.Turn();
             Visualizer.Draw();
         }
-        Console.WriteLine("End of simulation!\n");
-    
+        Console.WriteLine("End of simulation!\n");*/
     }
 }

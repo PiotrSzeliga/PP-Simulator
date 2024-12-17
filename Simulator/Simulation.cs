@@ -61,7 +61,7 @@ public class Simulation
         if (Finished) throw new InvalidOperationException("Simulation is finished");
         IMappables[_currentMappable].Go(_directions[_currentMove]);
         _currentMappable = (_currentMappable + 1) % (IMappables.Count);
-        
+        _currentMove++;
         if (_currentMove != _directions.Count) return;
         Finished = true;
     }
