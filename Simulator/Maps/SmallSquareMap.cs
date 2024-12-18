@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps;
 
-public class SmallSquareMap(int size) : SmallMap(size, size)
+public class SmallSquareMap: SmallMap
 {
-    public override Point Next(Point p, Direction d)
-    {
-        return Exist(p.Next(d)) ? p.Next(d) : p;
-    }
-
-    public override Point NextDiagonal(Point p, Direction d)
-    {
-        return Exist(p.NextDiagonal(d)) ? p.NextDiagonal(d) : p;
+    public SmallSquareMap(int size) : base(size, size) 
+    { 
+        FNext = MoveRules.WallNext;
+        FNextDiagonal = MoveRules.WallNextDiagonal;
     }
 }

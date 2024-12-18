@@ -13,6 +13,10 @@ public abstract class Map
     public readonly Dictionary<Point, List<IMappable>> fields;
     public int SizeX { get; init; }
     public int SizeY { get; init; }
+
+    protected Func<Map, Point, Direction, Point>? FNext { get; set; }
+    protected Func<Map, Point, Direction, Point>? FNextDiagonal { get; set; }
+
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5)
@@ -70,6 +74,6 @@ public abstract class Map
     {
         return mapRectangle.Contains(p);
     }
-    public abstract Point Next(Point p, Direction d);
-    public abstract Point NextDiagonal(Point p, Direction d);
+    public Point Next(Point p, Direction d) => FNext?.Invoke(this, p , d) ?? p;
+    public Point NextDiagonal(Point p, Direction d) => FNextDiagonal?.Invoke(this, p, d) ?? p;
 }
