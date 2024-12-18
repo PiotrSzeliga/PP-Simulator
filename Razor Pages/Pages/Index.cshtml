@@ -2,6 +2,22 @@
 @model Razor_Pages.Pages.IndexModel
 @{
 }
+<style>
+    .active {
+        text-decoration: none;
+        color: aquamarine;
+    }
+    nav > span {
+        color: white;
+    }
+</style>
+<header>
+    <h1>Simweb</h1>
+    <nav>
+        <span>Informacje</span>
+        <a class="active" href="/Simulation">Symulacja</a>
+    </nav>
+</header>
 <h2>Aplikacja demonstracyjna Sim Web</h2>
 <br />
 <p>Wizualizacja symulacji z wykorzystaniem programowania obiektowego w C# i Razor Pages.</p>

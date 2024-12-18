@@ -3,6 +3,22 @@
 @model Razor_Pages.Pages.SimulationModel
 @{
 }
+<style>
+    .active {
+        text-decoration: none;
+        color: aquamarine;
+    }
+    nav > span {
+        color: white;
+    }
+</style>
+<header>
+    <h1>Simweb</h1>
+    <nav>
+        <a class="active" href="/Index">Informacje</a>
+        <span>Symulacja</span>
+    </nav>
+</header>
 <div class="mapInfo">
     <form asp-page-handler="previous" method="post">
         <button>←</button>
@@ -18,9 +34,9 @@
         {
             for (int j = 0; j < SimulationModel.map.SizeX; j++)
             {
-                if (SimulationModel.history.TurnLogs[SimulationModel.turn].Symbols.ContainsKey(new Point(j, i)))
+                if (SimulationModel.history.TurnLogs[SimulationModel.turn].Symbols.ContainsKey(new Point(j, SimulationModel.map.SizeY - i)))
                 {
-                    switch (SimulationModel.history.TurnLogs[SimulationModel.turn].Symbols[new Point(j, i)])
+                    switch (SimulationModel.history.TurnLogs[SimulationModel.turn].Symbols[new Point(j, SimulationModel.map.SizeY - i)])
                     {
                         case 'O':
                             @: <div><img src="Resources/OrcIcon.png"></div>
