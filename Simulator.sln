@@ -9,9 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Runner", "Runner\Runner.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSimulator", "TestSimulator\TestSimulator.csproj", "{01BA2C2D-8C14-417A-AFCB-4D73833A7481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimConsole", "SimConsole\SimConsole.csproj", "{FAB60D33-B415-4A51-820C-6240CFF198D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimConsole", "SimConsole\SimConsole.csproj", "{FAB60D33-B415-4A51-820C-6240CFF198D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Razor Pages", "Razor Pages\Razor Pages.csproj", "{D2719791-CD0E-4EDC-B7D8-725FD3C0D52D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{785C885E-A9A6-48C5-B306-000788D951B9} = {785C885E-A9A6-48C5-B306-000788D951B9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

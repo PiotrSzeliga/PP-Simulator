@@ -1,0 +1,63 @@
+﻿@page
+@using Simulator
+@model Razor_Pages.Pages.SimulationModel
+@{
+}
+<div class="mapInfo">
+    <form asp-page-handler="previous" method="post">
+        <button>←</button>
+    </form>
+    <div class="turn">Turn: @SimulationModel.turn</div>
+    <form asp-page-handler="next" method="post">
+        <button>→</button>
+    </form>
+</div>
+<div class="map">
+    @{
+        for (int i = 0; i < SimulationModel.map.SizeY; i++)
+        {
+            for (int j = 0; j < SimulationModel.map.SizeX; j++)
+            {
+                if (SimulationModel.history.TurnLogs[SimulationModel.turn].Symbols.ContainsKey(new Point(j, i)))
+                {
+                    switch (SimulationModel.history.TurnLogs[SimulationModel.turn].Symbols[new Point(j, i)])
+                    {
+                        case 'O':
+                            @: <div><img src="Resources/OrcIcon.png"></div>
+                            break;
+                        case 'E':
+                            @: <div><img src="Resources/ElfIcon.png"></div>
+                            break;
+                        case 'B':
+                            @: <div><img src="Resources/BirdIcon.png"></div>
+                            break;
+                        case 'b':
+                            @: <div><img src="Resources/OstrichIcon.png"></div>
+                            break;
+                        case 'A':
+                            @: <div><img src="Resources/RabbitIcon.png"></div>
+                            break;
+                        case 'X':
+                            @: <div><img src="Resources/ZadymkaIcon.png"></div>
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    @: <div></div>
+                }
+            }
+        }
+    }
+</div>
+@{ if (SimulationModel.turn == 0) 
+    {
+        @:<div class="mapInfo">Starting positions</div>
+    }
+    else
+    {
+        @:<div class="mapInfo">@SimulationModel.history.TurnLogs[SimulationModel.turn].Mappable => @SimulationModel.history.TurnLogs[SimulationModel.turn].Move</div>
+    }
+}

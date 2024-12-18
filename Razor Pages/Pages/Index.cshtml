@@ -1,7 +1,12 @@
 ﻿@page
-@model IndexModel
-<h1>Welcome</h1>
-<h2>Counter: @Model.Counter</h2>
-<form asp-page="/Index" method="post">
-    <button>Count</button>
-</form>
+@model Razor_Pages.Pages.IndexModel
+@{
+}
+<h2>Aplikacja demonstracyjna Sim Web</h2>
+<br />
+<p>Wizualizacja symulacji z wykorzystaniem programowania obiektowego w C# i Razor Pages.</p>
+<br />
+<p>Mapa typu: @SimulationModel.map.GetType().Name</p>
+<br />
+<p>Sekwencja ruchów: @SimulationModel.moves</p>
+<img src="Resources/HugeOrc.png" alt="scary orc" style="max-width:100%" />

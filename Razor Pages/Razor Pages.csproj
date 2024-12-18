@@ -7,4 +7,44 @@
     <RootNamespace>Razor_Pages</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\lib\bootstrap\**" />
+    <Compile Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <Compile Remove="wwwroot\lib\jquery-validation\**" />
+    <Compile Remove="wwwroot\lib\jquery\**" />
+    <Content Remove="wwwroot\lib\bootstrap\**" />
+    <Content Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <Content Remove="wwwroot\lib\jquery-validation\**" />
+    <Content Remove="wwwroot\lib\jquery\**" />
+    <EmbeddedResource Remove="wwwroot\lib\bootstrap\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-validation\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery\**" />
+    <None Remove="wwwroot\lib\bootstrap\**" />
+    <None Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <None Remove="wwwroot\lib\jquery-validation\**" />
+    <None Remove="wwwroot\lib\jquery\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\Resource.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Resources\BirdIcon.png" />
+    <None Include="wwwroot\Resources\ElfIcon.png" />
+    <None Include="wwwroot\Resources\HugeOrc.png" />
+    <None Include="wwwroot\Resources\OrcIcon.png" />
+    <None Include="wwwroot\Resources\OstrichIcon.png" />
+    <None Include="wwwroot\Resources\RabbitIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Simulator\Simulator.csproj" />
+  </ItemGroup>
+
 </Project>
